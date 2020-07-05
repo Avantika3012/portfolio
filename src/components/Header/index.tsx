@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ siteTitle }) => (
-  <Styled.Header>
+  <Styled.Header className="resume-header">
     <Styled.Wrapper>
       <Logo />
       <MainNav />

@@ -75,7 +75,7 @@ const Creatives: React.FC = () => {
             } = item.node;
 
             return (
-              <Styled.Creative key={id}>
+              <Styled.Creative className="video-carousel" key={id}>
                 <Styled.Frame width="60%" height="20%" src={videoSourceURL}  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                 <Styled.Title>{title}</Styled.Title>
                 <FormatHtml content={html} />

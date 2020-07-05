@@ -37,10 +37,13 @@ const Email: React.FC = () => {
     <Styled.Email>
       <Container section>
         <TitleSection title={email.title} subtitle={email.subtitle} center />
-        <Styled.Form>
+        <Styled.Form data-netlify="true" > 
           <Styled.Input type="text" placeholder={email.namePlaceholder} />
           <Styled.Input type="email" placeholder={email.emailPlaceholder} />
           <Styled.Message  placeholder={email.messagePlaceholder} />
+          <div className="form-group">
+            <div data-netlify-recaptcha="true"></div>
+          </div>
           <Button primary block>
             {email.submitPlaceholder}
           </Button>

@@ -3,7 +3,7 @@ category: 'project'
 cover: './cover.jpg'
 title: 'Pharmaceutical Project'
 description: 'AWS / Devops.'
-date: '2020-02-03'
+date: '08/2018 - 02/2019'
 tags: ['AWS', 'Automation']
 published: true
 ---

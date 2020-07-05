@@ -23,7 +23,7 @@ const Banner: React.FC<Props> = ({ title, subtitle, content, linkTo, linkText, i
       <img src={image} alt="Azure Badge" width="10%" height="10%" />
       <img src="https://img.techpowerup.org/200704/aws-badge689.png" alt="AWS Badge" width="10%" height="10%" />
       <Styled.Content>{content}</Styled.Content>
-      <Link to={linkTo}>
+      <Link className="about-button" to={linkTo}>
         <Button primary>{linkText}</Button>
       </Link>
     </Container>

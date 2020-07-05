@@ -13,6 +13,9 @@ import { Fab, Action } from 'react-tiny-fab';
 import 'react-tiny-fab/dist/styles.css';
 import ReactModal from 'react-modal';
 
+const actionStyle ={
+  backgroundColor: 'rgb(129, 230, 217)'
+}
 const customStyles = {
   content: {
     top: '50%',
@@ -21,7 +24,8 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: 'rgb(63, 237, 162)'
+    backgroundColor: 'rgb(129, 230, 217)',
+    borderWidth: '0px'
   }
 };
 
@@ -63,7 +67,8 @@ const profile = (
 );
 
 const Layout: React.FC<Props> = ({ children }) => {
-  const [showComponent, setShowComponent] = useState('false');
+  const [state, setState] = useState({showComponent: 'false',
+  onsubmitMessage: 'false', showConactForm: 'false'});
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -76,13 +81,30 @@ const Layout: React.FC<Props> = ({ children }) => {
   `);
 
   const handleEmailOnClick = () => {
-    setShowComponent('true');
+    setState({
+      showComponent: 'true',
+      onsubmitMessage: 'false',
+      showConactForm: 'true'
+    })
+    //setShowComponent('true');
   };
 
   const handleModalClose = (event: any) => {
-    setShowComponent('false');
+    setState({
+      showComponent: 'false',
+      onsubmitMessage: 'false',
+      showConactForm: 'false'
+    })
   };
 
+  const onSubmitHandle = (event) => {
+    setState({
+      showComponent: 'true',
+      onsubmitMessage: 'true',
+      showConactForm: 'false'
+    });
+    event.preventDefault()
+  }
   return (
     <>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -90,7 +112,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-        crossorigin="anonymous"
+        crossOrigin="anonymous"
       />
       <GlobalStyles />
       <AnimatePresence exitBeforeEnter>
@@ -103,42 +125,52 @@ const Layout: React.FC<Props> = ({ children }) => {
             transition={{ delay: 0.2 }}
           >
             {children}
+            <div className="resume-modal">
             
-            <Fab mainButtonStyles={mainButtonStyles} position={position} icon={Add} event="click">
-              <Action onClick={handleEmailOnClick} children={messageBox} text="Drop me a message" />
-              <Action children={downloadButton} text="Download Resume" />
-              <Action children={profile} text="LinkedIn Profile" />
+            <Fab mainButtonStyles={mainButtonStyles} position={position} icon={Add} event="hover">
+              <Action  style={actionStyle} onClick={handleEmailOnClick}  children={messageBox} text="Drop me a message" />
+              <Action style={actionStyle} children={downloadButton} text="Download Resume" />
+              <Action style={actionStyle} children={profile} text="LinkedIn Profile" />
             </Fab>
-            {showComponent === 'true' ? (
+            {state.showComponent === 'true' ? (
               <ReactModal
-                isOpen={showComponent == 'true'}
+                isOpen={state.showComponent == 'true'}
                 onRequestClose={handleModalClose}
                 contentLabel="Example Modal In Gatsby"
                 style={customStyles}
               >
-                <button onClick={handleModalClose} className="close">
+                <button onClick={handleModalClose} className="close modal-close-button">
                   x
                 </button>
                 <br />
+                { state.showConactForm === 'true' ? (
+                  <div>
                 <h4>Get in touch!!</h4>
-                <form className="form" action="https://www.flexyform.com/f/[YouFormKey]" method="post">
+                <form className="form" data-netlify="true" method="POST" >
                   <div className="form-group">
-                    <input type="text" className="form-control" placeholder="Name"  required/>
+                    <input type="text" name="name" className="form-control" placeholder="Name"  required/>
                   </div>
                   <div className="form-group">
-                    <input type="email" className="form-control"  placeholder="name@example.com" required/>
+                    <input type="email" name="email" className="form-control"  placeholder="name@example.com" required/>
                   </div>
                   <div className="form-group">
-                    <textarea className="form-control"  placeholder="Your Message" rows="3" required></textarea>
+                    <textarea className="form-control"  name="message" placeholder="Your Message" rows="3" required></textarea>
+                  </div>
+                  <div className="form-group">
+                    <div data-netlify-recaptcha="true"></div>
                   </div>
                   <ul className="actions" >
                     <li>
-                      <button type="submit"  className="btn btn-info">Send</button>
+                      <button  type="submit" onClick={onSubmitHandle} className="btn btn-info modal-submit-button">Send</button>
                     </li>
                   </ul>
                 </form>
+                </div>
+                ): null}
+                { state.onsubmitMessage === 'true' ? (<span className="text-white">Thank you for getting in touch!</span>) : null}
               </ReactModal>
             ) : null}
+            </div>
             <Footer />
           </motion.div>
         </Styled.Layout>

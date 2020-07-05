@@ -54,7 +54,7 @@ const Posts: React.FC = () => {
             frontmatter {
               title
               description
-              date(formatString: "MMM DD, YYYY")
+              date
               tags
               cover {
                 childImageSharp {
