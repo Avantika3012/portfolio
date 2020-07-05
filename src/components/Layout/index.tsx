@@ -146,15 +146,16 @@ const Layout: React.FC<Props> = ({ children }) => {
                 { state.showConactForm === 'true' ? (
                   <div>
                 <h4>Get in touch!!</h4>
-                <form className="form" data-netlify="true" method="POST" >
+                <form name="contact" className="form" data-netlify="true" method="POST" >
+                <input type="hidden" name="form-name" value="contact" />
                   <div className="form-group">
-                    <input type="text" name="name" className="form-control" placeholder="Name"  required/>
+                    <input type="text" name="name" value={name} className="form-control" placeholder="Name"  required/>
                   </div>
                   <div className="form-group">
-                    <input type="email" name="email" className="form-control"  placeholder="name@example.com" required/>
+                    <input type="email" name="email" value={email} className="form-control"  placeholder="name@example.com" required/>
                   </div>
                   <div className="form-group">
-                    <textarea className="form-control"  name="message" placeholder="Your Message" rows="3" required></textarea>
+                    <textarea className="form-control" name="message" value={message}   placeholder="Your Message" rows="3" required></textarea>
                   </div>
                   <div className="form-group">
                     <div data-netlify-recaptcha="true"></div>
