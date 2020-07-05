@@ -97,7 +97,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     })
   };
 
-  const onSubmitHandle = (event) => {
+  const handleSubmit = event => {
     setState({
       showComponent: 'true',
       onsubmitMessage: 'true',
@@ -146,8 +146,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                 { state.showConactForm === 'true' ? (
                   <div>
                 <h4>Get in touch!!</h4>
-                <form name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field" className="form" method="POST" >
-                  <input type="hidden" name="bot-field" />
+                <form name="contact" method="post" onSubmit={handleSubmit} className="form" >
                   <input type="hidden" name="form-name" value="contact" />
                   <div className="form-group">
                     <input type="text" name="name" id="name" className="form-control" placeholder="Name"  required/>
@@ -158,21 +157,32 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <div className="form-group">
                     <textarea className="form-control" name="message" id="message"   placeholder="Your Message" rows="3" required></textarea>
                   </div>
-                  <div className="form-group">
-                    <div data-netlify-recaptcha="true"></div>
-                  </div>
                   <ul className="actions" >
                     <li>
-                      <button  type="submit" value="Send Message" onClick={onSubmitHandle} className="btn btn-info modal-submit-button">Send</button>
+                      <button  type="submit" value="Send Message"  className="btn btn-info modal-submit-button">Send</button>
                     </li>
                   </ul>
                 </form>
                 </div>
                 ): null}
-                { state.onsubmitMessage === 'true' ? (<span className="text-white">Thank you for getting in touch!</span>) : null}
               </ReactModal>
             ) : null}
             </div>
+            { state.onsubmitMessage === 'true' ? (
+              <ReactModal
+              isOpen={state.showComponent == 'true'}
+              onRequestClose={handleModalClose}
+              contentLabel="Example Modal In Gatsby"
+              style={customStyles}
+            >
+              <button onClick={handleModalClose} className="close modal-close-button">
+                  x
+              </button>
+              <br />
+              <span className="text-white">Thank you for getting in touch!</span>
+            </ReactModal>
+
+            ) : null}
             <Footer />
           </motion.div>
         </Styled.Layout>
