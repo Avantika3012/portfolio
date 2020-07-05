@@ -127,7 +127,7 @@ const Layout: React.FC<Props> = ({ children }) => {
             {children}
             <div className="resume-modal">
             
-            <Fab mainButtonStyles={mainButtonStyles} position={position} icon={Add} event="hover">
+            <Fab mainButtonStyles={mainButtonStyles} position={position} icon={Add} event="click">
               <Action  style={actionStyle} onClick={handleEmailOnClick}  children={messageBox} text="Drop me a message" />
               <Action style={actionStyle} children={downloadButton} text="Download Resume" />
               <Action style={actionStyle} children={profile} text="LinkedIn Profile" />
