@@ -146,23 +146,24 @@ const Layout: React.FC<Props> = ({ children }) => {
                 { state.showConactForm === 'true' ? (
                   <div>
                 <h4>Get in touch!!</h4>
-                <form name="contact" className="form" data-netlify="true" method="POST" >
-                <input type="hidden" name="form-name" value="contact" />
+                <form name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field" className="form" method="POST" >
+                  <input type="hidden" name="bot-field" />
+                  <input type="hidden" name="form-name" value="contact" />
                   <div className="form-group">
-                    <input type="text" name="name" value={name} className="form-control" placeholder="Name"  required/>
+                    <input type="text" name="name" id="name" className="form-control" placeholder="Name"  required/>
                   </div>
                   <div className="form-group">
-                    <input type="email" name="email" value={email} className="form-control"  placeholder="name@example.com" required/>
+                    <input type="email" name="email" id="email" className="form-control"  placeholder="name@example.com" required/>
                   </div>
                   <div className="form-group">
-                    <textarea className="form-control" name="message" value={message}   placeholder="Your Message" rows="3" required></textarea>
+                    <textarea className="form-control" name="message" id="message"   placeholder="Your Message" rows="3" required></textarea>
                   </div>
                   <div className="form-group">
                     <div data-netlify-recaptcha="true"></div>
                   </div>
                   <ul className="actions" >
                     <li>
-                      <button  type="submit" onClick={onSubmitHandle} className="btn btn-info modal-submit-button">Send</button>
+                      <button  type="submit" value="Send Message" onClick={onSubmitHandle} className="btn btn-info modal-submit-button">Send</button>
                     </li>
                   </ul>
                 </form>
