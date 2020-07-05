@@ -146,7 +146,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                 { state.showConactForm === 'true' ? (
                   <div>
                 <h4>Get in touch!!</h4>
-                <form name="contact" method="post" onSubmit={handleSubmit} className="form" >
+                <form name="contact" method="post"  className="form" >
                   <input type="hidden" name="form-name" value="contact" />
                   <div className="form-group">
                     <input type="text" name="name" id="name" className="form-control" placeholder="Name"  required/>
@@ -168,7 +168,7 @@ const Layout: React.FC<Props> = ({ children }) => {
               </ReactModal>
             ) : null}
             </div>
-            { state.onsubmitMessage === 'true' ? (
+            {/* { state.onsubmitMessage === 'true' ? (
               <ReactModal
               isOpen={state.showComponent == 'true'}
               onRequestClose={handleModalClose}
@@ -182,7 +182,7 @@ const Layout: React.FC<Props> = ({ children }) => {
               <span className="text-white">Thank you for getting in touch!</span>
             </ReactModal>
 
-            ) : null}
+            ) : null} */}
             <Footer />
           </motion.div>
         </Styled.Layout>
